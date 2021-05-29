@@ -48,3 +48,81 @@ function assignRoles(array) {
 
 
 
+//The 'connection' is a reserved event name in socket.io
+//For whenever a connection is established between the server and a client
+io.on('connection', (socket) => {
+	
+    //Displaying a message on the terminal
+    console.log('a user connected');
+
+
+    socket.on('add user', (username) => {
+        // we store the username in the socket session for this client
+        socket.username = username;
+        ++numUsers;
+        addedUser = true;
+
+        console.log(username + ' connected');
+
+
+        socket.emit('login', {
+            numUsers: numUsers
+        });
+        // echo globally (all clients) that a person has connected
+        socket.broadcast.emit('user joined', {
+            username: socket.username,
+            numUsers: numUsers
+        });
+
+
+        users = [];
+        for (let [id, socket] of io.of("/").sockets) {
+            users.push({
+              userID: id,
+              username: socket.username,
+              role: ROLE_NORMAL,
+            });
+        }
+        socket.emit("users", users);
+
+
+    });
+
+
+
+
+    /*
+    //Sending a message to the client
+    socket.emit('serverToClient', "Hello, client!");
+    //Receiving a message from the client and putting it on the terminal
+    socket.on('clientToServer', data => {
+        console.log(data);
+    })
+    //When the client sends a message via the 'clientToClient' event
+    //The server forwards it to all the other clients that are connected
+    socket.on('clientToClient', data => {
+        socket.broadcast.emit('serverToClient', data);
+    })
+    */
+
+
+
+    // when the user disconnects.. perform this
+    socket.on('disconnect', () => {
+        if (numUsers) {
+            --numUsers;
+
+            // echo globally that this client has left
+            console.log(socket.username + ' disconnected');
+
+            socket.broadcast.emit('user left', {
+            username: socket.username,
+            numUsers: numUsers
+            });
+        }   
+    });
+
+
+
+    
+});
