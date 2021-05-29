@@ -1,3 +1,6 @@
+import { crime_location,  death_cause, murder_scene_cards, evidence_cards, means_cards } from './cards.js'
+
+
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000;
@@ -87,6 +90,25 @@ io.on('connection', (socket) => {
 
 
     });
+
+
+
+
+    socket.on('startGameMsg', data => {
+        if(numUsers<6){
+            return;
+        }
+
+        console.log(data);
+        users = assignRoles(users)
+        io.emit('users', users);
+        io.emit('startGametoClient', users);        
+
+
+
+    });
+
+
 
 
 
