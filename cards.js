@@ -7,29 +7,29 @@ crime_location = [["Living Room","Bedroom","Storeroom","Bathroom","Kitchen","Bal
 death_cause = ["Suffocation","Severe Injury","Loss of Blood","Illness/ Disease","Poisoning","Accident"]
 
 //scene tiles
-murder_scene_cards = {
-    "Motive of Crime":["Hatred","Power","Money","Love","Jealousy","Justice"],
-    "Weather":["Sunny","Stormy","Dry","Humid","Cold","Hot"],
-    "Hint on Corpse":["Head","Chest","Hand","Leg","Partial","All-over"],
-    "General Impression":["Common","Creative","Fishy","Cruel","Horrible","Suspenseful"],
-    "Corpse Condition":["Still Warm","Stiff","Decayed","Incomplete","Intact","Twisted"],
-    "Victim's Identity":["Child","Young Adult","Middle-Aged","Senior","Male","Female"],
-    "Murderer's Personality":["Arrogant","Despicable","Furious","Greedy","Forceful","Perverted"],
-    "State of The Scene":["Bits and Pieces","Ashes","Water Stain","Cracked","Disorderly","Tidy"],
-    "Victim's Build":["Large","Thin","Tall","Short","Disfigured","Fit"],
-    "Victim's Clothes":["Neat","Untidy","Elegant","Shabby","Bizarre","Naked"],
-    "Evidence Left Behind":["Natural","Artistic","Written","Synthetic","Personal","Unrelated"],
-    "Victim's Expression":["Peaceful","Struggling","Frightened","In Pain","Blank","Angry"],
-    "Time of Death":["Dawn","Morning","Noon","Afternoon","Evening","Midnight"],
-    "Duration of Crime":["Instanteous","Brief","Gradual","Prolonged","Few Days","Unclear"],
-    "Trace at the Scene":["Fingerprint","Footprint","Bruise","Blood Stain","Body Fluid","Scar"],
-    "Noticed by Bystander":["Sudden sound","Prolonged sound","Smell","Visual","Action","Nothing"],
-    "Social Relationship":["Relatives","Friends","Colleagues","Employer/ Employee","Lovers","Strangers"],
-    "Victim's Occupation":["Boss","Professional","Worker","Student","Unemployed","Retired"],
-    "In Progress":["Entertainment","Relaxation","Assembly","Trading","Visit","Dining"],
-    "Sudden Incident":["Power Failure","Fire","Conflict","Loss of Valuables","Scream","Nothing"],
-    "Day of Crime":["Weekday","Weekend","Spring","Summer","Autumn","Winter"],
-}
+murder_scene_cards = [
+    {"Motive of Crime":["Hatred","Power","Money","Love","Jealousy","Justice"]},
+    {"Weather":["Sunny","Stormy","Dry","Humid","Cold","Hot"]},
+    {"Hint on Corpse":["Head","Chest","Hand","Leg","Partial","All-over"]},
+    {"General Impression":["Common","Creative","Fishy","Cruel","Horrible","Suspenseful"]},
+    {"Corpse Condition":["Still Warm","Stiff","Decayed","Incomplete","Intact","Twisted"]},
+    {"Victim's Identity":["Child","Young Adult","Middle-Aged","Senior","Male","Female"]},
+    {"Murderer's Personality":["Arrogant","Despicable","Furious","Greedy","Forceful","Perverted"]},
+    {"State of The Scene":["Bits and Pieces","Ashes","Water Stain","Cracked","Disorderly","Tidy"]},
+    {"Victim's Build":["Large","Thin","Tall","Short","Disfigured","Fit"]},
+    {"Victim's Clothes":["Neat","Untidy","Elegant","Shabby","Bizarre","Naked"]},
+    {"Evidence Left Behind":["Natural","Artistic","Written","Synthetic","Personal","Unrelated"]},
+    {"Victim's Expression":["Peaceful","Struggling","Frightened","In Pain","Blank","Angry"]},
+    {"Time of Death":["Dawn","Morning","Noon","Afternoon","Evening","Midnight"]},
+    {"Duration of Crime":["Instanteous","Brief","Gradual","Prolonged","Few Days","Unclear"]},
+    {"Trace at the Scene":["Fingerprint","Footprint","Bruise","Blood Stain","Body Fluid","Scar"]},
+    {"Noticed by Bystander":["Sudden sound","Prolonged sound","Smell","Visual","Action","Nothing"]},
+    {"Social Relationship":["Relatives","Friends","Colleagues","Employer/ Employee","Lovers","Strangers"]},
+    {"Victim's Occupation":["Boss","Professional","Worker","Student","Unemployed","Retired"]},
+    {"In Progress":["Entertainment","Relaxation","Assembly","Trading","Visit","Dining"]},
+    {"Sudden Incident":["Power Failure","Fire","Conflict","Loss of Valuables","Scream","Nothing"]},
+    {"Day of Crime":["Weekday","Weekend","Spring","Summer","Autumn","Winter"]},
+]
 
 //clues cards or evidence
 
@@ -38,4 +38,12 @@ evidence_cards = ["Air Conditioning","Ants","Antique","Apple","Badge","Bandage",
 means_cards =  ["Alcohol","Amoeba","Arsenic","Arson","Axe","Bamboo Tip","Bat","Belt","Bite And Tear","Blender","Blood Release","Box Cutter","Brick","Bury","Candlestick","Chainsaw","Chemicals","Cleaver","Crutch","Dagger","Dirty Water","Dismember","Drill","Drown","Dumbbell","E-Bike","Electric Baton","Electric Current","Explosives","Folding Chair","Gunpowder","Hammer","Hook","Ice Skates","Illegal Drug","Injection","Kerosene","Kick","Knife And Fork","Lighter","Liquid Drug","Locked Room","Machete","Machine","Mad Dog","Match","Mercury","Metal Chain","Metal Wire","Overdose","Packing Tape","Pesticide","Pill","Pillow","Pistol","Plague","Plastic Bag","Poisonous Gas","Poisonous Needle","Potted Plant","Powder Drug","Punch","Push","Radiation","Razor Blade","Rope","Scarf","Scissors","Sculpture","Smoke","Sniper","Starvation","Steel Tube","Stone","Sulfuric Acid","Surgery","Throat Slit","Towel","Trophy","Trowel","Unarmed","Venomous Scorpion","Venomous Snake","Video Game Console","Virus","Whip","Wine","Wire","Work","Wrench"]
 
 
-export { crime_location,  death_cause, murder_scene_cards, evidence_cards, means_cards };
+module.exports = {
+    crime_location:crime_location,
+    death_cause:death_cause,
+    murder_scene_cards:murder_scene_cards,
+    evidence_cards: evidence_cards,
+    means_cards:means_cards
+}
+
+//export { crime_location,  death_cause, murder_scene_cards, evidence_cards, means_cards };

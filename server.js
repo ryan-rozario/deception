@@ -1,5 +1,4 @@
-import { crime_location,  death_cause, murder_scene_cards, evidence_cards, means_cards } from './cards.js'
-
+var { crime_location,  death_cause, murder_scene_cards, evidence_cards, means_cards } = require("./cards.js")
 
 const express = require('express')
 const app = express()
@@ -20,19 +19,17 @@ app.use('/client', express.static(__dirname + '/client'));
 
 //TODO: make this a mapping for rooms later
 let numUsers = 0;
+let current_scene_cards_index = 0;
 
-const ROLES_INDIVIDUAL = ["Forensic Scientist", "Murderer", "Accomplice", "Witness"]
+//const ROLES_INDIVIDUAL = ["Forensic Scientist", "Murderer", "Accomplice", "Witness"]
+const ROLES_INDIVIDUAL = ["Forensic Scientist", "Murderer"]
 const ROLE_NORMAL = "Investigator"
 
+var locationCardIndex = -1
 var gameState = 0
 
 function shuffleFisherYates(array) {
     let i = array.length;
-
-    if (n > i)
-        throw new RangeError("getRandom: more elements taken than available");
-
-
     while (i--) {
       const ri = Math.floor(Math.random() * (i + 1));
       [array[i], array[ri]] = [array[ri], array[i]];
@@ -41,7 +38,10 @@ function shuffleFisherYates(array) {
 }
 
 function assignRoles(array) {
-    //shuffleFisherYates
+    n=ROLES_INDIVIDUAL.length
+    if(n>array.length){
+        throw new RangeError("getRandom: more elements taken than available");
+    }
     array = shuffleFisherYates(array);
     while (n--) {
         array[n].role = ROLES_INDIVIDUAL[n];
@@ -49,6 +49,35 @@ function assignRoles(array) {
     return array;
 }
 
+function assignCards(users){
+    evidence_cards = shuffleFisherYates(evidence_cards);
+    means_cards = shuffleFisherYates(means_cards)
+    no_means_cards = 4; 
+    no_evidence_cards = 4;
+    let no_users = users.length;
+    user_cards = []
+    for (var i = 0; i < no_users; i++) {
+        user_cards.push({
+            userID: users[i].userID,
+            username: users[i].username,
+            user_means_cards: means_cards.slice(no_means_cards*i, no_means_cards*(i+1)),
+            user_evidence_cards: evidence_cards.slice(no_means_cards*i, no_means_cards*(i+1)),
+        });
+
+    }
+    return user_cards;
+}
+
+function getSceneCards(){
+    if(current_scene_cards_index==0){
+        murder_scene_cards = shuffleFisherYates(murder_scene_cards);
+        current_scene_cards = murder_scene_cards.slice(0,3);
+        current_scene_cards_index = 3;
+    }
+
+    return current_scene_cards;
+
+}
 
 
 //The 'connection' is a reserved event name in socket.io
@@ -95,20 +124,23 @@ io.on('connection', (socket) => {
 
 
     socket.on('startGameMsg', data => {
-        if(numUsers<6){
+        if(numUsers>6 || numUsers<3 ){
             return;
         }
 
         console.log(data);
-        users = assignRoles(users)
+        users = assignRoles(users);
         io.emit('users', users);
-        io.emit('startGametoClient', users);        
-
-
-
     });
 
-
+    socket.on('setLocationCard', locationCardNo => {
+        locationCardIndex = locationCardNo;
+        scene_cards = getSceneCards()
+        io.emit('initial_scene_cards' , {cl:crime_location[locationCardIndex], dc:death_cause, sc:scene_cards})
+        cards = assignCards(users);
+        io.emit('users_cards', cards);
+        io.emit('startGametoClient', users);
+    });
 
 
 
