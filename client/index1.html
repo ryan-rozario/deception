@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server-Client Communication</title>
+</head>
+<body>
+
+    <h1>Deception: Murder in HongKong Online</h1>
+
+    <div id= "login-container" class="login page">
+        <div class="form">
+          <h3 class="title">What's your nickname?</h3>
+          <input id="username" class="usernameInput" type="text" maxlength="14" />
+          <button id="login" type="submit">Add User</button>
+        </div>
+    </div>
+
+    <button id="startGame">Start Game once everyone has Joined</button>
+
+    <div class="role-container">
+        <h2>Role</h2>
+        <p id="role" class="role-value"></p>
+    </div>
+
+
+    <div class="scientist-cards">
+        <div class="scientist-cards-list">
+            <ul id="crime-location-list">
+            </ul>
+            <ul id="death-cause-list">
+            </ul>
+            <ul id="scene-card-list-1">
+            </ul>
+            <ul id="scene-card-list-2">
+            </ul>
+            <ul id="scene-card-list-3">
+            </ul>
+        </div>
+    </div>
+
+    <div class="current-cards">
+        <ul class="cards-list">
+        </ul>
+    </div>
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client/client.js"></script>
+</body>
+</html>

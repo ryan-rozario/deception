@@ -1,46 +1,473 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Server-Client Communication</title>
+  <title>Deception</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+
 </head>
+
 <body>
 
-    <h1>Deception: Murder in HongKong Online</h1>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Deception : A Murder in Hong Kong</a>
+    </div>
+    <div id="navbarText">
+      <span class="navbar-text" id="role"></span>
+    </div>
+  </nav>
 
-    <div id= "login-container" class="login page">
-        <div class="form">
-          <h3 class="title">What's your nickname?</h3>
-          <input id="username" class="usernameInput" type="text" maxlength="14" />
-          <button id="login" type="submit">Add User</button>
+  <div>
+    <div id="login-container" class="login page">
+      <div class="form">
+        <h3 class="title">What's your nickname?</h3>
+        <input id="username" class="usernameInput" type="text" maxlength="14" />
+        <button id="login" type="submit">Add User</button>
+      </div>
+    </div>
+  </div>
+
+  <button id="startGame">Start Game once everyone has Joined</button>
+  </div>
+
+  <!-- Start of location/scene div -->
+  <div class="location-scene-option ">
+    <div class="location container text-center d-none" id="location-select-container">
+      <h3 class="location-heading">Select Your Location Card</h3>
+      <div class="row row-cols-5">
+        <div class="col">
+          <div class="card" style="max-width: 18rem;">
+            <div class="card-header">
+              <h5 class="card-title">Crime Location</h5>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Living Room</p>
+              <p class="card-text">Bedroom</p>
+              <p class="card-text">Storeroom</p>
+              <p class="card-text">Bathroom</p>
+              <p class="card-text">Kitchen</p>
+              <p class="card-text">Balcony</p>
+              <a href="#" class="stretched-link" onclick='selectLocationCard(0);'></a>
+            </div>
+          </div>
         </div>
+        <div class="col">
+          <div class="card" style="max-width: 18rem;">
+            <div class="card-header">
+              <h5 class="card-title">Crime Location</h5>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Vacation Home</p>
+              <p class="card-text">Park</p>
+              <p class="card-text">Supermarket</p>
+              <p class="card-text">School</p>
+              <p class="card-text">Woods</p>
+              <p class="card-text">Bank</p>
+              <a href="#" class="stretched-link" onclick='selectLocationCard(1);'></a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="max-width: 18rem;">
+            <div class="card-header">
+              <h5 class="card-title">Crime Location</h5>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Pub</p>
+              <p class="card-text">Bookstore</p>
+              <p class="card-text">Restaurant</p>
+              <p class="card-text">Hotel</p>
+              <p class="card-text">Hospital</p>
+              <p class="card-text">Building Site</p>
+              <a href="#" class="stretched-link" onclick='selectLocationCard(2);'></a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="max-width: 18rem;">
+            <div class="card-header">
+              <h5 class="card-title">Crime Location</h5>
+            </div>
+            <div class="card-body">
+              <p class="card-text">Playground</p>
+              <p class="card-text">Classroom</p>
+              <p class="card-text">Dormitory</p>
+              <p class="card-text">Cafeteria</p>
+              <p class="card-text">Elevator</p>
+              <p class="card-text">Toilet</p>
+              <a href="#" class="stretched-link" onclick='selectLocationCard(3);'></a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-
-
-    <div class="role-container">
-        <h2>Role</h2>
-        <p class="role-value"></p>
+    <div class="scene container d-none" id="scene-cards">
+      <h3 class="scene-heading">Crime Scene Attributes</h3>
+      <div class="row row-cols-5">
+        <div class="col">
+          <div class="card" style="max-width: 18rem;">
+            <div class="card-header">
+              <h5 class="card-title">Crime Location</h5>
+            </div>
+            <div class="card-body" id="crime-location-list">
+              <p class="card-text">Location 1</p>
+              <p class="card-text">Location 2</p>
+              <p class="card-text">Location 3</p>
+              <p class="card-text">Location 4</p>
+              <p class="card-text">Location 5</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="max-width: 18rem;">
+            <div class="card-header">
+              <h5 class="card-title">Cause of Death</h5>
+            </div>
+            <div class="card-body" id="death-cause-list">
+              <p class="card-text">Option 1</p>
+              <p class="card-text">Option 2</p>
+              <p class="card-text">Option 3</p>
+              <p class="card-text">Option 4</p>
+              <p class="card-text">Option 5</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="max-width: 18rem;">
+            <div class="card-header">
+              <h5 class="card-title" id="scene-card-list-1-title">Scene Attribute 1</h5>
+            </div>
+            <div class="card-body" id="scene-card-list-1">
+              <p class="card-text">Option 1</p>
+              <p class="card-text">Option 2</p>
+              <p class="card-text">Option 3</p>
+              <p class="card-text">Option 4</p>
+              <p class="card-text">Option 5</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="max-width: 18rem;">
+            <div class="card-header">
+              <h5 class="card-title" id="scene-card-list-2-title">Scene Attribute 2</h5>
+            </div>
+            <div class="card-body" id="scene-card-list-2">
+              <p class="card-text">Option 1</p>
+              <p class="card-text">Option 2</p>
+              <p class="card-text">Option 3</p>
+              <p class="card-text">Option 4</p>
+              <p class="card-text">Option 5</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="max-width: 18rem;">
+            <div class="card-header">
+              <h5 class="card-title" id="scene-card-list-3-title">Scene Attribute 3</h5>
+            </div>
+            <div class="card-body" id="scene-card-list-3">
+              <p class="card-text">Option 1</p>
+              <p class="card-text">Option 2</p>
+              <p class="card-text">Option 3</p>
+              <p class="card-text">Option 4</p>
+              <p class="card-text">Option 5</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <!-- End of location/scene div -->
 
-    <button id="startGame">Start Game</button>
 
-    <div class="current-cards">
-        <ul class="cards-list">
-        </ul>
+
+
+  <div class="container px-10 d-none">
+    <div class="row gy-5">
+
+      <!--Player 1 cards -->
+
+
+      <div class="col-6">
+        <div class="row">
+          <h3>Player 1 <button type="button" class="btn btn-primary btn-sm">Guess</button></h3>
+        </div>
+        <!--Evidence Cards -->
+        <div class="row card-group">
+          <h5>Evidence Cards</h5>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+        </div>
+
+        <!--Means Cards -->
+        <div class="row card-group">
+          <h5>Means Cards</h5>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!--Player 2 cards -->
+
+      <div class="col-6">
+
+        <h3>Player 2 <button type="button" class="btn btn-primary btn-sm">Guess</button></h3>
+
+        <!--Evidence Cards -->
+        <div class="row card-group">
+          <h5>Evidence Cards</h5>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+        </div>
+
+        <!--Means Cards -->
+        <div class="row card-group">
+          <h5>Means Cards</h5>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Player 3 cards -->
+
+
+      <div class="col-6">
+
+        <h3>Player 3 <button type="button" class="btn btn-primary btn-sm">Guess</button></h3>
+
+        <!--Evidence Cards -->
+        <div class="row card-group">
+          <h5>Evidence Cards</h5>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+        </div>
+
+        <!--Means Cards -->
+        <div class="row card-group">
+          <h5>Means Cards</h5>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Player 4 cards -->
+
+
+      <div class="col-6">
+
+        <h3>Player 4 <button type="button" class="btn btn-primary btn-sm">Guess</button></h3>
+
+        <!--Evidence Cards -->
+        <div class="row card-group">
+          <h5>Evidence Cards</h5>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+        </div>
+
+        <!--Means Cards -->
+        <div class="row card-group">
+          <h5>Means Cards</h5>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+          <div class="card" style="max-width: 9rem;">
+            <img src="images/sword.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">Sword</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+  </div>
+
+  </div>
 
 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+    crossorigin="anonymous"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/client/client.js"></script>
 
-
-
-
-
-
-    
-    
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/client/client.js"></script>
 </body>
+
 </html>
